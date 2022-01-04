@@ -92,9 +92,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Main Sidebar Container -->
   @include('partials/admin_navbar')
 
-
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
+    @if ($message = Session::get('success'))
+      <div class="alert alert-success" role="alert">{{ $message }}</div>
+    @elseif ($message = Session::get('failed'))
+      <div class="alert alert-warning" role="alert">{{ $message }}</div>
+    @endif
+                
       @yield('container')
     
   </div>

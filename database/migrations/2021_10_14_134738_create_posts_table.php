@@ -17,11 +17,13 @@ class CreatePostsTable extends Migration
             $table->increments('id');
             $table->foreignId('author_ID');
             $table->bigInteger('category_ID')->nullable();
+            $table->bigInteger('post_votes')->default(0);
             $table->longText('post_content');
             $table->Text('post_short_content');
             $table->text('post_title');
             $table->string('post_slug', 200);
             $table->string('post_type', 20); //page or post
+            // $table->string('post_thumbnail')->nullable();
             $table->timestamps();
         });
     }

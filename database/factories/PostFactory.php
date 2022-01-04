@@ -33,8 +33,8 @@ class PostFactory extends Factory
                 return str_replace(".","",$slug);
             },
             // 'post_type' => $this->faker->shuffle(['post','page'])[1],
-            'post_type' => $this->faker->numberBetween(2, 4),
-            'post_thumbnail' => "uploads/posts/def_thumbnail.png"
+            'post_type' => $this->faker->numberBetween(1, 3),
+            'post_thumbnail' => "posts/def_thumbnail.png"
         ];
     }
 }

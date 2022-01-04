@@ -37,7 +37,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                   {{-- <div> --}}
                     {{-- <a class="navbar-brand" href="#"> --}}
-                    <a href="#">
+                    <a href="{{ url('/') }}">
                       <img src="{{ asset('app/images/logo.png') }}" alt=""/>
                     </a>
                   {{-- </div> --}}
@@ -69,14 +69,19 @@
                         <li class="nav-item active">
                           <a class="nav-link" href="{{ url('/') }}">Beranda</a>
                         </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url('/') }}">Profil</a>
+                        <li class="nav-item dropdown">
+                          <a id="navbarDropdownProfil" class="nav-link dropdown-toggle" href="#" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                Halaman <span class="caret"></span>
+                          </a>
+                          <div class="dropdown-menu" aria-labelledby="navbarDropdownProfil">
+                            @foreach ($pages as $page)
+                              <a class="dropdown-item" href="{{ route('pages.lihat',$page->slug) }}">{{ $page->title }}</a>
+                            @endforeach
+                          </div>
                         </li>
                         <li class="nav-item">
-                          <a class="nav-link" href="{{ url('/') }}">Berita & Kegiatan</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ url('/') }}">Warkah</a>
+                          <a class="nav-link" href="{{ route('posts.daftar') }}">Artikel</a>
                         </li>
                         @guest
                         <li class="nav-item">
@@ -89,8 +94,8 @@
                                 {{ Auth::user()->name }} <span class="caret"></span>
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" href="{{ route('users.viewchangepassword') }}">Ganti
-                                    Password</a>
+                                <a class="dropdown-item" href="{{ route('posts.index') }}">Dashboard</a>
+                                <a class="dropdown-item" href="{{ route('users.viewchangepassword') }}">Ganti Password</a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">

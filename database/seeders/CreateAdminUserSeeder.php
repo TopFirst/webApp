@@ -18,6 +18,7 @@ class CreateAdminUserSeeder extends Seeder
     {
         $user = User::create([
             'name' => 'Topik', 
+            'username' => 'topik', 
             'alamat' => 'Tembesi', 
             'hp' => '6285668190996', 
             // 'foto' => 'uploads/users/topik.png',
@@ -34,7 +35,8 @@ class CreateAdminUserSeeder extends Seeder
    
         //untuk kurir
         $user_contributor = User::create([
-            'name' => 'bobi', 
+            'name' => 'Bobi', 
+            'username' => 'bobi', 
             'alamat' => 'Tembesi', 
             'hp' => '6282174788182', 
             // 'foto' => 'uploads/users/bobi.jpg', 

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -45,10 +46,19 @@ Auth::routes();
 
 Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
 Route::get('/cekresi',[HomeController::class,'cekresi'])->name('home.cekresi');
+Route::get('/home/web_config',[HomeController::class,'web_config'])->middleware('auth')->name('home.web_config');
+Route::post('/home/ubahconfig/{WebConfig}', [HomeController::class,'ubahconfig'])->name('home.ubahconfig');
+
+Route::get('/posts/checkSlug', [PostsController::class, 'checkSlug'])->middleware('auth');
+Route::get('/posts/{post}/lihat', [PostsController::class, 'lihat'])->name('posts.lihat'); //tidak ada authentikasi karena ini untuk tampilkan single post, jadi boleh diliat semua orang
+Route::get('/posts/daftar', [PostsController::class, 'daftar'])->name('posts.daftar'); //tidak ada authentikasi karena ini menampilkan daftar semua postingan
+Route::get('/posts/categories', [PostsController::class, 'categories'])->name('posts.categories'); //tidak ada authentikasi karena ini menampilkan daftar semua category
+
+Route::get('/pages/{page}/lihat', [PageController::class, 'lihat'])->name('pages.lihat'); //tidak ada authentikasi karena ini menampilkan format halaman
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
-    // Route::resource('web', WebController::class);
+    Route::resource('pages', PageController::class);
     Route::resource('posts', PostsController::class);
 });

@@ -20,6 +20,7 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
         'hp',
         'alamat',
@@ -45,13 +46,5 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    /**
-     * Get daftar jemputan by user
-     */
-    public function jemputan()
-    {
-        return $this->hasMany(Tbljemput::class);
-    }
 
 }

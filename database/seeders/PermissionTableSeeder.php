@@ -22,7 +22,11 @@ class PermissionTableSeeder extends Seeder
             'post-list',
             'post-create',
             'post-edit',
-            'post-delete'
+            'post-delete',
+            'page-list',
+            'page-create',
+            'page-edit',
+            'page-delete'
          ];
          foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

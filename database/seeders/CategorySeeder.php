@@ -17,7 +17,6 @@ class CategorySeeder extends Seeder
     {
         //seed post type
         $post_types= Array(
-            Array("Page","page"),
             Array("Post","post"),
             Array("Foto","foto"),
             Array("Video","video"),
@@ -36,7 +35,7 @@ class CategorySeeder extends Seeder
             Array("Riset Kebudayaan Melayu","riset-kebudayaan-melayu"),
             Array("Wawancara Khusus","wawancara-khusus"),
             Array("Tulisan Sejarah Melayu","tulisan-sejarah-melayu"),
-            Array("Melek Budaya","melek-budaya")
+            Array("Celek Budaya","celek-budaya")
             );
          foreach ($categories as $category) {
             Category::create(

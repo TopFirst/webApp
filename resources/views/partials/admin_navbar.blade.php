@@ -23,7 +23,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
             <li class="nav-item">
-                <a href="{{ route('posts.index') }}" class="nav-link">
+                <a href="{{ route('posts.index') }}" class="nav-link {{ Request::is('posts*')?'active':'' }}">
                   <i class="nav-icon fas fa-tachometer-alt"></i>
                   <p>
                     Artikel
@@ -31,10 +31,19 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('posts.index') }}" class="nav-link">
+                <a href="{{ route('pages.index') }}" class="nav-link {{ Request::is('pages*')?'active':'' }}">
                   <i class="nav-icon fas fa-book"></i>
                   <p>
                     Halaman
+                  </p>
+                </a>
+              </li>
+              <li class="nav-header">Pengaturan</li>
+              <li class="nav-item">
+                <a href="{{ route('home.web_config') }}" class="nav-link {{ Request::is('home/web_config')?'active':'' }}">
+                  <i class="nav-icon fas fa-cogs"></i>
+                  <p>
+                    Pengaturan Web
                   </p>
                 </a>
               </li>
