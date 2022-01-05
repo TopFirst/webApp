@@ -20,13 +20,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Artikel Baru</h1>
+                <h1 class="m-0 text-dark">Post Video Baru</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fas fa-home"></i> Beranda</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Artikel</a></li>
-                    <li class="breadcrumb-item active">Artikel Baru</li>
+                    <li class="breadcrumb-item active">Post Video Baru</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -58,7 +58,7 @@
 						</div>
 					@enderror
 				</div>
-				<div class="row">
+				<div class="row mb-1">
 					<div class="col-12 p-0">
 						<div class="form-group">
 							@error('post_content')
@@ -70,10 +70,19 @@
 						</div>
 					</div>
 				</div>
+                <div class="row">
+					<input type="text" name="item_content" id="item_content" class="col-12 form-control @error('item_content') is-invalid @enderror" placeholder="Youtube link video.." autofocus value="{{ old('item_content') }}">
+                    @error('item_content')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+				</div>
             </div>
 			<div class="col-md-3">
 				<!-- Post Type -->
-                <input type="hidden" name="post_type_slug" value="post">
+                <input type="hidden" name="post_type_slug" value="video">
+				
 				<!-- Kategori -->
 				<div class="row ml-md-2">
 					<div class="card col-12">

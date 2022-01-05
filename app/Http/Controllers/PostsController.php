@@ -6,6 +6,7 @@ use App\Models\Page;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Category;
+use App\Models\PostDetail;
 use App\Models\PostType;
 use App\Models\WebConfig;
 use Illuminate\Support\Str;
@@ -49,7 +50,21 @@ class PostsController extends Controller
     public function create()
     {
         $categories = Category::all();
-        // $post_types = PostType::where('id','>',1)->get();
+        return view('posts.create', compact('categories'));
+    }
+    public function createvideo()
+    {
+        $categories = Category::all();
+        return view('posts.createvideo', compact('categories'));
+    }
+    public function createfoto()
+    {
+        $categories = Category::all();
+        return view('posts.create', compact('categories'));
+    }
+    public function master()
+    {
+        $categories = Category::all();
         $post_types = PostType::all();
         return view('posts.create', compact('categories','post_types'));
     }
@@ -61,14 +76,20 @@ class PostsController extends Controller
      */
     public function store(Request $request)
     {
-        $validatedData=$request->validate([
+        $rules=[
             'post_title'=>'required|max:255',
             'post_slug' => 'required|unique:posts',
             'post_content' => 'required',
             'category_ID' => 'required',
             'post_thumbnail' => 'image|file|max:1024',
-            'post_type' => 'required'
-        ]);
+            'post_type_slug' => 'required'
+        ];
+
+        if($request->post_type_slug=='video')
+        {
+            $rules['item_content']='required';
+        }
+        $validatedData= $request->validate($rules);
 
         if($request->file('post_thumbnail'))
         {
@@ -76,12 +97,21 @@ class PostsController extends Controller
         }
 
         $validatedData['author_ID'] = auth()->user()->id;
+        $validatedData['post_type'] = PostType::firstWhere('post_type_slug',$request->post_type_slug)->id;
         $validatedData['post_short_content'] = Str::limit(strip_tags($request->post_content) , 200);
     
-        Post::create($validatedData);
+        $post=Post::create($validatedData);
+        if($request->post_type_slug=='video')
+        {
+            PostDetail::create([
+                'post_ID'=>$post->id,
+                'item_name'=> $validatedData['post_title'],
+                'item_content' => $request->item_content
+            ]);
+        }
         
         return redirect()->route('posts.index')
-                        ->with('success','artikel baru berhasil dibuat.');
+                        ->with('success','artikel video baru berhasil dibuat.');
     }
     /**
      * Show the form for editing the specified resource.

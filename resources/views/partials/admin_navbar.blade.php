@@ -22,9 +22,34 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
-                <a href="{{ route('posts.index') }}" class="nav-link {{ Request::is('posts*')?'active':'' }}">
-                  <i class="nav-icon fas fa-tachometer-alt"></i>
+          <li class="nav-item">
+            <a href="{{ route('posts.create') }}" class="nav-link {{ Request::is('posts/create')?'active':'' }}">
+              <i class="nav-icon fas fa-file-alt"></i>
+              <p>
+                Artikel Baru
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('posts.createvideo') }}" class="nav-link {{ Request::is('posts/createvideo')?'active':'' }}">
+              <i class="nav-icon fas fa-video"></i>
+              <p>
+                Video Baru
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="{{ route('posts.createfoto') }}" class="nav-link {{ Request::is('posts/createfoto')?'active':'' }}">
+              <i class="nav-icon fas fa-images"></i>
+              <p>
+                Foto Baru
+              </p>
+            </a>
+          </li>
+          <li class="nav-header">Data</li>
+          <li class="nav-item">
+                <a href="{{ route('posts.index') }}" class="nav-link {{ Request::is('posts')?'active':'' }}">
+                  <i class="nav-icon fas fa-newspaper"></i>
                   <p>
                     Artikel
                   </p>
@@ -35,6 +60,14 @@
                   <i class="nav-icon fas fa-book"></i>
                   <p>
                     Halaman
+                  </p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="{{ route('posts.master') }}" class="nav-link {{ Request::is('posts/master')?'active':'' }}">
+                  <i class="nav-icon fas fa-database"></i>
+                  <p>
+                    Master
                   </p>
                 </a>
               </li>

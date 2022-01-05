@@ -58,6 +58,10 @@ class Post extends Model
     {
         return $this->hasMany(Comment::class);
     }
+    public function details()
+    {
+        return $this->hasMany(PostDetail::class);
+    }
     public function getRouteKeyName()
     {
         return 'post_slug';

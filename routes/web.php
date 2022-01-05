@@ -49,12 +49,17 @@ Route::get('/cekresi',[HomeController::class,'cekresi'])->name('home.cekresi');
 Route::get('/home/web_config',[HomeController::class,'web_config'])->middleware('auth')->name('home.web_config');
 Route::post('/home/ubahconfig/{WebConfig}', [HomeController::class,'ubahconfig'])->name('home.ubahconfig');
 
+Route::get('/posts/createvideo', [PostsController::class, 'createvideo'])->middleware('auth')->name('posts.createvideo');
+Route::get('/posts/createfoto', [PostsController::class, 'createfoto'])->middleware('auth')->name('posts.createfoto');
+Route::get('/posts/master', [PostsController::class, 'master'])->middleware('auth')->name('posts.master');
 Route::get('/posts/checkSlug', [PostsController::class, 'checkSlug'])->middleware('auth');
 Route::get('/posts/{post}/lihat', [PostsController::class, 'lihat'])->name('posts.lihat'); //tidak ada authentikasi karena ini untuk tampilkan single post, jadi boleh diliat semua orang
 Route::get('/posts/daftar', [PostsController::class, 'daftar'])->name('posts.daftar'); //tidak ada authentikasi karena ini menampilkan daftar semua postingan
 Route::get('/posts/categories', [PostsController::class, 'categories'])->name('posts.categories'); //tidak ada authentikasi karena ini menampilkan daftar semua category
 
+
 Route::get('/pages/{page}/lihat', [PageController::class, 'lihat'])->name('pages.lihat'); //tidak ada authentikasi karena ini menampilkan format halaman
+
 
 Route::group(['middleware' => ['auth']], function() {
     Route::resource('roles', RoleController::class);
