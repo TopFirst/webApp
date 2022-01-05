@@ -64,7 +64,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a href="{{ route('posts.master') }}" class="nav-link {{ Request::is('posts/master')?'active':'' }}">
+                <a href="{{ route('masters.index') }}" class="nav-link {{ Request::is('masters*')?'active':'' }}">
                   <i class="nav-icon fas fa-database"></i>
                   <p>
                     Master

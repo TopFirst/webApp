@@ -62,12 +62,6 @@ class PostsController extends Controller
         $categories = Category::all();
         return view('posts.create', compact('categories'));
     }
-    public function master()
-    {
-        $categories = Category::all();
-        $post_types = PostType::all();
-        return view('posts.create', compact('categories','post_types'));
-    }
     /**
      * Store a newly created resource in storage.
      *

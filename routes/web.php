@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\MasterController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostsController;
 use App\Http\Controllers\RoleController;
@@ -51,7 +52,6 @@ Route::post('/home/ubahconfig/{WebConfig}', [HomeController::class,'ubahconfig']
 
 Route::get('/posts/createvideo', [PostsController::class, 'createvideo'])->middleware('auth')->name('posts.createvideo');
 Route::get('/posts/createfoto', [PostsController::class, 'createfoto'])->middleware('auth')->name('posts.createfoto');
-Route::get('/posts/master', [PostsController::class, 'master'])->middleware('auth')->name('posts.master');
 Route::get('/posts/checkSlug', [PostsController::class, 'checkSlug'])->middleware('auth');
 Route::get('/posts/{post}/lihat', [PostsController::class, 'lihat'])->name('posts.lihat'); //tidak ada authentikasi karena ini untuk tampilkan single post, jadi boleh diliat semua orang
 Route::get('/posts/daftar', [PostsController::class, 'daftar'])->name('posts.daftar'); //tidak ada authentikasi karena ini menampilkan daftar semua postingan
@@ -66,4 +66,5 @@ Route::group(['middleware' => ['auth']], function() {
     Route::resource('users', UserController::class);
     Route::resource('pages', PageController::class);
     Route::resource('posts', PostsController::class);
+    Route::resource('masters', MasterController::class);
 });
