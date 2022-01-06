@@ -33,11 +33,13 @@
                     <h2>Artikel Terbaru</h2>
                     <div class="row">
                         <div class="col-md-12">
+                          <a href="{{ route('posts.lihat',$posts[0]->post_slug) }}" class="text-decoration-none text-dark">
                             @if ($posts[0]->post_thumbnail)
                                 <img src="{{ asset('uploads/' . $posts[0]->post_thumbnail) }}" alt="{{ $posts[0]->post_thumbnail }}" class="card-img-top">
                             @else
                                 <img src="https://source.unsplash.com/500x400?{{ $posts[0]->kategori->category_name }}" alt="{{ $posts[0]->post_thumbnail }}" class="card-img-top">
                             @endif
+                          </a>
                             <h3 class="mb-0"><a href="{{ route('posts.lihat',$posts[0]->post_slug) }}" class="text-decoration-none text-dark">{{ $posts[0]->post_title }}</a></h3>
 
                             <p class="fs-12 text-muted mb-0">
@@ -57,12 +59,13 @@
                             <div class="row">
                               <div class="col-sm-5 pr-2">
                                 <div class="rotate-img">
-                                  <img
-                                    {{-- src="assets/images/dashboard/home_19.jpg" --}}
-                                    src="{{ asset('uploads/' . $post->post_thumbnail) }}"
-                                    alt="{{ $post->post_thumbnail }}"
-                                    class="img-fluid w-100"
-                                  />
+                                  <a href="{{ route('posts.lihat',$post->post_slug) }}" class="fs-16 font-weight-600 mb-0 text-decoration-none text-dark">
+                                    <img
+                                      src="{{ asset('uploads/' . $post->post_thumbnail) }}"
+                                      alt="{{ $post->post_thumbnail }}"
+                                      class="img-fluid w-100"
+                                    />
+                                  </a>
                                 </div>
                               </div>
                               <div class="col-sm-7 pl-2">

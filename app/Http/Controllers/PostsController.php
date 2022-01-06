@@ -152,12 +152,20 @@ class PostsController extends Controller
     public function lihat(Post $post)
     {
         // $posts=Post::latest()->take(5)->get();
-        $posts = Post::latest()->paginate(10);
         $pages = Page::all();
 
         $web_configs = WebConfig::latest()->get();
         $categories = Category::withCount('post')->get()->sortByDesc('post_count');
-        return view('posts.show',compact('post','categories','web_configs','posts','pages'));
+        if($post->tipe->post_type_slug=='video'){
+            $posts = Post::whereHas('tipe',function($query){
+                $query->where('post_type_slug','video');
+            })->get();
+            return view('posts.showvideo',compact('post','categories','web_configs','posts','pages'));
+        }
+        else{
+            $posts = Post::latest()->paginate(10);
+            return view('posts.show',compact('post','categories','web_configs','posts','pages'));
+        }
     }
     /**
      * Show daftar semua post di halaman web nya 
