@@ -1,6 +1,6 @@
 @extends('layouts/admin')
 
-@section('title', '| Edit Artikel')
+@section('title', '| Post Foto Baru')
 
 @push('css')
 	<!-- summernote -->
@@ -11,6 +11,17 @@
 		trix-toolbar [data-trix-button-group="file-tools"]{
 			display:none;
 		}
+
+    .preview-image img
+    {
+          padding: 10px;
+          /* max-width: 100px; */
+		  max-height: 100px;
+		  border: 1px solid #ddd;
+		  padding: 1px 1px 0px 1px;
+		  margin-right: 5px;
+    }
+        
 	</style>
 @endpush
 
@@ -20,13 +31,13 @@
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
-                <h1 class="m-0 text-dark">Ubah Artikel</h1>
+                <h1 class="m-0 text-dark">Post Foto Baru</h1>
             </div><!-- /.col -->
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-right">
                     <li class="breadcrumb-item"><a href="{{ route('index') }}"><i class="fas fa-home"></i> Beranda</a></li>
                     <li class="breadcrumb-item"><a href="{{ route('posts.index') }}">Artikel</a></li>
-                    <li class="breadcrumb-item active">Ubah Artikel</li>
+                    <li class="breadcrumb-item active">Post Foto Baru</li>
                 </ol>
             </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,13 +48,13 @@
 <!-- Main content -->
 <div class="content">
     <div class="container-fluid">
-		<form action="{{ route('posts.update',$post->post_slug) }}" method="POST" enctype="multipart/form-data">
+		<form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
 		@csrf
-		@method('PUT')
+		@method('POST')
         <div class="row">
             <div class="col-md-9 col-lg-9 col-sm-12">
 				<div class="row mb-1">
-					<input type="text" name="post_title" id="title" class="col-12 form-control @error('post_title') is-invalid @enderror" placeholder="Judul artikel.." autofocus value="{{ old('post_title', $post->post_title) }}">
+					<input type="text" name="post_title" id="title" class="col-12 form-control @error('post_title') is-invalid @enderror" placeholder="Judul artikel.." autofocus value="{{ old('post_title') }}">
 				@error('post_title')
 					<div class="invalid-feedback">
 						{{ $message }}
@@ -51,7 +62,7 @@
 				@enderror
 				</div>
 				<div class="row mb-3">
-					<input type="text" name="post_slug" id="slug" class="col-12 form-control @error('post_slug') is-invalid @enderror" placeholder="Slug.." readonly value="{{ old('post_slug', $post->post_slug) }}">
+					<input type="text" name="post_slug" id="slug" class="col-12 form-control @error('post_slug') is-invalid @enderror" placeholder="Slug.." readonly value="{{ old('post_slug') }}">
 					@error('post_slug')
 						<div class="invalid-feedback">
 							{{ $message }}
@@ -64,26 +75,44 @@
 							@error('post_content')
 								<p class="text-danger">{{ $message }}</p>
 							@enderror
-							<input id="body" type="hidden" name="post_content" value="{{ old('post_content', $post->post_content) }}">
+							<input id="body" type="hidden" name="post_content" value="{{ old('post_content') }}">
 							<trix-editor input="body"></trix-editor>
 							{{-- <textarea class="textarea" style="height: 350px;"></textarea> --}}
 						</div>
 					</div>
 				</div>
-				@if ($post->tipe->post_type_slug=='video')
-				<div class="row">
-						<input type="text" name="item_content" id="item_content" class="col-12 form-control @error('item_content') is-invalid @enderror" placeholder="Youtube link video.." autofocus value="{{ old('item_content',$post->details[0]->item_content) }}">
+                <div class="row">
+                    {{-- <div class="col-12 mb-3">
+                        <label for="pro-image" class="form-label">Pilih Beberapa Foto</label>
+                        <input class="text col-12 @error('item_content') is-invalid @enderror" type="file" id="pro-image" name="item_content[]" accept=".jpeg,.png,.jpg,.svg" multiple>
+                        @error('item_content')
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+                        @enderror
+                        <div class="preview-images-zone"></div>
+                      </div> --}}
+
+					<div class="col-md-12 mb-2">
+						<div class="form-control">
+							<input type="file" id="item_content" name="item_content[]" placeholder="Pilih File" accept=".jpeg,.png,.jpg,.svg" multiple >
+						</div>
 						@error('item_content')
-							<div class="invalid-feedback">
-								{{ $message }}
-							</div>
+							<p class="text-danger fs-10">{{ $message }}</p>
 						@enderror
+					</div>
+					
+					<div class="col-md-12 border" >
+						<div class="mt-1 text-center">
+							<div class="preview-image"> </div>
+						</div>  
+					</div>
+
 				</div>
-				@endif
             </div>
 			<div class="col-md-3">
 				<!-- Post Type -->
-				<input type="hidden" name="post_type" value="{{ $post->post_type }}">
+                <input type="hidden" name="post_type_slug" value="foto">
 				<!-- Kategori -->
 				<div class="row ml-md-2">
 					<div class="card col-12">
@@ -97,7 +126,7 @@
 						<div class="card-body p-1">
 							<select class="form-control col-12" name="category_ID">
 								@foreach ($categories as $category)
-									@if(old('category_ID', $post->category_ID) == $category->id)
+									@if(old('category_ID') == $category->id)
 										<option value="{{ $category->id }}" selected>{{ $category->category_name }}</option>
 									@else
 										<option value="{{ $category->id }}">{{ $category->category_name }}</option>
@@ -140,12 +169,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body p-2">
-							<input type="hidden" name="oldImage" value="{{ $post->post_thumbnail }}">
-							@if ($post->post_thumbnail)
-								<img src="{{ asset('uploads/' . $post->post_thumbnail) }}" class="img-preview img-fluid">
-							@else
-								<img class="img-preview img-fluid">
-							@endif
+							<img class="img-preview img-fluid">
 							<input type="file" class="text @error('post_thumbnail') is-invalid @enderror" name="post_thumbnail" id="image" accept=".jpeg,.png,.jpg,.svg" onchange="previewImage()">
 							@error('post_thumbnail')
 								<div class="invalid-feedback">
@@ -167,7 +191,7 @@
 						</div>
 						<!-- /.card-header -->
 						<div class="card-body p-2">
-							<button type="submit" class="btn btn-info col-12"><i class="fas fa-save"></i> Update Artikel</button>
+							<button type="submit" class="btn btn-info col-12"><i class="fas fa-save"></i> Simpan Semua</button>
 						</div>
 						<!-- /.card-body -->
 					</div>
@@ -184,13 +208,31 @@
 @endsection
 
 @push('scripts')
-<!-- Summer Note -->
-<script src="{{ asset('plugins/summernote/summernote-bs4.min.js') }}"></script>
 <script type="text/javascript">
-    $(function () {
-        // Summernote
-        $('.textarea').summernote()
+
+$(function() {
+    // Multiple images preview with JavaScript
+    var multiImgPreview = function(input, imgPreviewPlaceholder) {
+        if (input.files) {
+            var filesAmount = input.files.length;
+            for (i = 0; i < filesAmount; i++) {
+                var reader = new FileReader();
+                reader.onload = function(event) {
+                    $($.parseHTML('<img>')).attr('src', event.target.result).appendTo(imgPreviewPlaceholder);
+                }
+                reader.readAsDataURL(input.files[i]);
+            }
+        }
+    };
+    $('#item_content').on('change', function() {
+        multiImgPreview(this, 'div.preview-image');
     });
+  });  
+
+$(document).ready(function() {
+
+});
+
 	const title=document.querySelector('#title');
 	const slug=document.querySelector('#slug');
 
@@ -208,19 +250,23 @@
 		e.preventDefault();
 	})
 
+function previewImage()
+{
+	const image=document.querySelector('#image');
+	const imgPreview=document.querySelector('.img-preview');
 
-	function previewImage()
-	{
-		const image=document.querySelector('#image');
-		const imgPreview=document.querySelector('.img-preview');
+	imgPreview.style.display='block';
+	const oFReader= new FileReader();
+	oFReader.readAsDataURL(image.files[0]);
 
-		imgPreview.style.display='block';
-		const oFReader= new FileReader();
-		oFReader.readAsDataURL(image.files[0]);
-
-		oFReader.onload=function(oFREvent){
-			imgPreview.src=oFREvent.target.result;
-		}
+	oFReader.onload=function(oFREvent){
+		imgPreview.src=oFREvent.target.result;
 	}
+}
+
+
+
+
+
 </script>
 @endpush

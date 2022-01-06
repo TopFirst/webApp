@@ -22,7 +22,7 @@ class Post extends Model
         'post_thumbnail',
     ];
     protected $guard=['created_at','updated_at'];
-    protected $with=['kategori','tipe','author','komen'];
+    protected $with=['kategori','tipe','author','komen','details'];
 
     public function scopeFilter($query, array $filters)
     {
@@ -56,11 +56,11 @@ class Post extends Model
     }
     public function komen()
     {
-        return $this->hasMany(Comment::class);
+        return $this->hasMany(Comment::class,'post_ID');
     }
     public function details()
     {
-        return $this->hasMany(PostDetail::class);
+        return $this->hasMany(PostDetail::class,'post_ID');
     }
     public function getRouteKeyName()
     {

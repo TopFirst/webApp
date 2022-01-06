@@ -39,7 +39,7 @@
                                     <th>No</th>
                                     <th>Tanggal</th>
                                     <th>Judul</th>
-                                    <th>Penulis</th>
+                                    <th>Tipe</th>
                                     <th>Kategori</th>
                                     <th>#</th>
                                 </tr>
@@ -50,7 +50,7 @@
                                     <td>{{ ++$i }}</td>
                                     <td>{{ $post->created_at }}</td>
                                     <td>{{ $post->post_title }}</td>
-                                    <td>{{ $post->author->name }}</td>
+                                    <td>{{ $post->tipe->post_type_name }}</td>
                                     <td>{{ $post->kategori->category_name }}</td>
                                     <td style="width:150px;">
                                         <a href="{{ route('posts.lihat',$post->post_slug) }}" class="btn btn-sm btn-default" target="_blank"><i class="fa fa-eye"></i></a>

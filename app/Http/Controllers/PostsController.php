@@ -60,7 +60,7 @@ class PostsController extends Controller
     public function createfoto()
     {
         $categories = Category::all();
-        return view('posts.create', compact('categories'));
+        return view('posts.createfoto', compact('categories'));
     }
     /**
      * Store a newly created resource in storage.
@@ -83,6 +83,11 @@ class PostsController extends Controller
         {
             $rules['item_content']='required';
         }
+        elseif($request->post_type_slug=='foto')
+        {
+            $rules['item_content']='required';
+            $rules['item_content.*']='image|file|max:1024';
+        }
         $validatedData= $request->validate($rules);
 
         if($request->file('post_thumbnail'))
@@ -94,7 +99,10 @@ class PostsController extends Controller
         $validatedData['post_type'] = PostType::firstWhere('post_type_slug',$request->post_type_slug)->id;
         $validatedData['post_short_content'] = Str::limit(strip_tags($request->post_content) , 200);
     
+        //simpan data postingan
         $post=Post::create($validatedData);
+
+        //simpan data postingan detail
         if($request->post_type_slug=='video')
         {
             PostDetail::create([
@@ -102,6 +110,22 @@ class PostsController extends Controller
                 'item_name'=> $validatedData['post_title'],
                 'item_content' => $request->item_content
             ]);
+        }
+        elseif($request->post_type_slug=='foto')
+        {
+            if($request->hasfile('item_content'))
+            {
+                foreach($request->file('item_content') as $key => $file)
+                {
+                    $path = $file->store('posts');
+                    $name = $file->getClientOriginalName();
+                    PostDetail::create([
+                        'post_ID'=>$post->id,
+                        'item_name'=> $name,
+                        'item_content' => $path
+                    ]);
+                }
+            }
         }
         
         return redirect()->route('posts.index')
@@ -197,6 +221,9 @@ class PostsController extends Controller
         if($request->post_slug != $post->post_slug){
             $rules['post_slug']='required|unique:posts';
         }
+        if($request->post_type_slug=='video'){
+            $rules['item_content']='required';
+        }
         $validatedData= $request->validate($rules);
 
         if($request->file('post_thumbnail'))
@@ -212,6 +239,16 @@ class PostsController extends Controller
 
         Post::where('id',$post->id)
         ->update($validatedData);
+
+        //update post detail : create or update untuk video
+        if($post->tipe->post_type_slug=='video')
+        {
+            $pd = PostDetail::firstOrNew(array('post_ID' => $post->id));
+            $pd->item_name = $post->post_title;
+            $pd->item_content = $request->item_content;
+            $pd->save();
+        }
+
         
         return redirect()->route('posts.index')
                         ->with('success','artikel berhasil diperbarui');
@@ -226,6 +263,17 @@ class PostsController extends Controller
     {
         if($post->post_thumbnail){
             Storage::delete($post->post_thumbnail);
+        }
+        if($post->details)
+        {
+            foreach($post->details as $pd)
+            {
+                $pd->delete();
+                if($post->tipe->post_type_slug=='foto')
+                {
+                    Storage::delete($pd->item_content);
+                }
+            }
         }
         $post->delete();
         return redirect()->route('posts.index')

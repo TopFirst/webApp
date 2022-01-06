@@ -131,7 +131,7 @@
 						<!-- /.card-header -->
 						<div class="card-body p-2">
 							<img class="img-preview img-fluid">
-							<input type="file" class="text @error('post_thumbnail') is-invalid @enderror" name="post_thumbnail" id="image" onchange="previewImage()">
+							<input type="file" class="text @error('post_thumbnail') is-invalid @enderror" accept=".jpeg,.png,.jpg,.svg" name="post_thumbnail" id="image" onchange="previewImage()">
 							@error('post_thumbnail')
 								<div class="invalid-feedback">
 									{{ $message }}
