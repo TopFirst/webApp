@@ -45,7 +45,7 @@ Route::get('/ex', function () {
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->middleware('auth')->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home'); // ini gapake authentikasi, untuk halaman depan aja soalnya
 Route::get('/cekresi',[HomeController::class,'cekresi'])->name('home.cekresi');
 Route::get('/home/web_config',[HomeController::class,'web_config'])->middleware('auth')->name('home.web_config');
 Route::post('/home/ubahconfig/{WebConfig}', [HomeController::class,'ubahconfig'])->name('home.ubahconfig');
