@@ -47,9 +47,64 @@
         </div> --}}
 
         <div class="content-wrapper">
+          @if ($message = Session::get('success'))
+            <div class="alert alert-success" role="alert">{{ $message }}</div>
+          @elseif ($message = Session::get('failed'))
+            <div class="alert alert-warning" role="alert">{{ $message }}</div>
+          @endif
             @yield('content')
         </div>
         <!-- main-panel ends -->
+        <!-- change password modal-->
+        <div class="modal fade" id="cpmodal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ganti Password</h5>
+                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+              </div>
+              <form method="POST" action="{{ route('users.changepassword') }}">
+                @csrf 
+              <div class="modal-body">
+                   @foreach ($errors->all() as $error)
+                      <p class="text-danger">{{ $error }}</p>
+                   @endforeach 
+
+                  <div class="form-group row">
+                      <label for="password" class="col-md-4 col-form-label text-md-right">Current Password</label>
+
+                      <div class="col-md-6">
+                          <input id="password" type="password" class="form-control" name="current_password" autocomplete="current-password">
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="password" class="col-md-4 col-form-label text-md-right">New Password</label>
+
+                      <div class="col-md-6">
+                          <input id="new_password" type="password" class="form-control" name="new_password" autocomplete="current-password">
+                      </div>
+                  </div>
+
+                  <div class="form-group row">
+                      <label for="password" class="col-md-4 col-form-label text-md-right">New Confirm Password</label>
+
+                      <div class="col-md-6">
+                          <input id="new_confirm_password" type="password" class="form-control" name="new_confirm_password" autocomplete="current-password">
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                <button type="submit" class="btn btn-primary">Simpan</button>
+              </div>
+            </form>
+
+            </div>
+          </div>
+        </div>
+        <!-- ./change passsword modal -->
+
         <!-- container-scroller ends -->
 
         <!-- partial:partials/_footer.html -->

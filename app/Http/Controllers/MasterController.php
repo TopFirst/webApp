@@ -14,6 +14,18 @@ class MasterController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:master-list|master-create|master-edit|master-delete', ['only' => ['index','store']]);
+         $this->middleware('permission:master-create', ['only' => ['create','store']]);
+         $this->middleware('permission:master-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:master-delete', ['only' => ['destroy']]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $categories=Category::all();

@@ -21,7 +21,6 @@ class CreateAdminUserSeeder extends Seeder
             'username' => 'topik', 
             'alamat' => 'Tembesi', 
             'hp' => '6285668190996', 
-            // 'foto' => 'uploads/users/topik.png',
             'email' => 'topik@tmg.com',
             'password' => bcrypt('123456')
         ]);
@@ -40,7 +39,7 @@ class CreateAdminUserSeeder extends Seeder
             'alamat' => 'Tembesi', 
             'hp' => '6282174788182', 
             // 'foto' => 'uploads/users/bobi.jpg', 
-            'email' => 'bobi@tmg.com',
+            'email' => 'bobi@lambatam.id',
             'password' => bcrypt('bobi123')
         ]);
 

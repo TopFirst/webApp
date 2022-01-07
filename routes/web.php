@@ -35,8 +35,8 @@ use App\Models\web_layanan;
 
 Route::get('/', [HomeController::class,'index'])->name('index');
 
-Route::get('changepassword', [UserController::class,'viewchangepassword'])->name('users.viewchangepassword');
-Route::post('changepassword', [UserController::class,'changepassword'])->name('users.changepassword');
+Route::get('changepassword', [UserController::class,'viewchangepassword'])->middleware('auth')->name('users.viewchangepassword');
+Route::post('changepassword', [UserController::class,'changepassword'])->middleware('auth')->name('users.changepassword');
 
 
 Route::get('/ex', function () {

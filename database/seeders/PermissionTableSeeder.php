@@ -26,7 +26,19 @@ class PermissionTableSeeder extends Seeder
             'page-list',
             'page-create',
             'page-edit',
-            'page-delete'
+            'page-delete',
+            'user-list',
+            'user-create',
+            'user-edit',
+            'user-delete',
+            'master-list',
+            'master-create',
+            'master-edit',
+            'master-delete',
+            'setting-list',
+            'setting-create',
+            'setting-edit',
+            'setting-delete'
          ];
          foreach ($permissions as $permission) {
             Permission::create(['name' => $permission]);

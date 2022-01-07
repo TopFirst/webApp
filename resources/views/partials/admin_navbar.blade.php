@@ -22,6 +22,7 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          @can('post-create')
           <li class="nav-item">
             <a href="{{ route('posts.create') }}" class="nav-link {{ Request::is('posts/create')?'active':'' }}">
               <i class="nav-icon fas fa-file-alt"></i>
@@ -46,23 +47,30 @@
               </p>
             </a>
           </li>
+          @endcan
+
           <li class="nav-header">Data</li>
+          @can('post-list')
           <li class="nav-item">
-                <a href="{{ route('posts.index') }}" class="nav-link {{ Request::is('posts')?'active':'' }}">
-                  <i class="nav-icon fas fa-newspaper"></i>
-                  <p>
-                    Artikel
-                  </p>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a href="{{ route('pages.index') }}" class="nav-link {{ Request::is('pages*')?'active':'' }}">
-                  <i class="nav-icon fas fa-book"></i>
-                  <p>
-                    Halaman
-                  </p>
-                </a>
-              </li>
+            <a href="{{ route('posts.index') }}" class="nav-link {{ Request::is('posts')?'active':'' }}">
+              <i class="nav-icon fas fa-newspaper"></i>
+              <p>
+                Artikel
+              </p>
+            </a>
+          </li>
+          @endcan
+          @can('page-list')
+          <li class="nav-item">
+            <a href="{{ route('pages.index') }}" class="nav-link {{ Request::is('pages*')?'active':'' }}">
+              <i class="nav-icon fas fa-book"></i>
+              <p>
+                Halaman
+              </p>
+            </a>
+          </li>
+          @endcan
+              @can('master-list')
               <li class="nav-item">
                 <a href="{{ route('masters.index') }}" class="nav-link {{ Request::is('masters*')?'active':'' }}">
                   <i class="nav-icon fas fa-database"></i>
@@ -71,6 +79,8 @@
                   </p>
                 </a>
               </li>
+              @endcan
+              @can('setting-list')
               <li class="nav-header">Pengaturan</li>
               <li class="nav-item">
                 <a href="{{ route('home.web_config') }}" class="nav-link {{ Request::is('home/web_config')?'active':'' }}">
@@ -80,6 +90,7 @@
                   </p>
                 </a>
               </li>
+              @endcan
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

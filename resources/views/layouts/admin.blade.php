@@ -68,9 +68,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    @can('role-edit')
                     <a class="dropdown-item" href="{{ route('roles.index') }}">Roles Management</a>
+                    @endcan                   
+                    @can('user-list')
                     <a class="dropdown-item" href="{{ route('users.index') }}">User Management</a>
                     <hr>
+                    @endcan
+
                     <a class="dropdown-item" href="{{ route('users.viewchangepassword') }}">Ganti Password</a>
 
                     <a class="dropdown-item" href="{{ route('logout') }}"

@@ -1,38 +1,6 @@
 <header id="header">
           <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
-              {{-- <div class="navbar-top">
-                <div class="d-flex justify-content-between align-items-center">
-                  <ul class="navbar-top-left-menu">
-                    <li class="nav-item">
-                      <a href="pages/index-inner.html" class="nav-link">Advertise</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="pages/aboutus.html" class="nav-link">About</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">Events</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">Write for Us</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">In the Press</a>
-                    </li>
-                  </ul>
-                  <ul class="navbar-top-right-menu">
-                    <li class="nav-item">
-                      <a href="#" class="nav-link"><i class="mdi mdi-magnify"></i></a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">Login</a>
-                    </li>
-                    <li class="nav-item">
-                      <a href="#" class="nav-link">Sign in</a>
-                    </li>
-                  </ul>
-                </div>
-              </div> --}}
               <div class="navbar-bottom py-3">
                 <div class="d-flex justify-content-between align-items-center">
                   {{-- <div> --}}
@@ -69,6 +37,9 @@
                         <li class="nav-item active">
                           <a class="nav-link" href="{{ url('/') }}">Beranda</a>
                         </li>
+                        <li class="nav-item">
+                          <a class="nav-link" href="{{ route('posts.daftar') }}">Artikel</a>
+                        </li>
                         <li class="nav-item dropdown">
                           <a id="navbarDropdownProfil" class="nav-link dropdown-toggle" href="#" role="button"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
@@ -80,13 +51,11 @@
                             @endforeach
                           </div>
                         </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="{{ route('posts.daftar') }}">Artikel</a>
-                        </li>
+                        
                         @guest
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="{{ route('login') }}">Log In</a>
-                        </li>
+                        </li> --}}
                         @else
                         <li class="nav-item dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -95,7 +64,8 @@
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <a class="dropdown-item" href="{{ route('posts.index') }}">Dashboard</a>
-                                <a class="dropdown-item" href="{{ route('users.viewchangepassword') }}">Ganti Password</a>
+                                {{-- <a class="dropdown-item" href="{{ route('users.viewchangepassword') }}">Ganti Password</a> --}}
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#cpmodal">Ganti Password</a>
 
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
                                                  document.getElementById('logout-form').submit();">
