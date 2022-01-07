@@ -15,6 +15,18 @@ class PageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    function __construct()
+    {
+         $this->middleware('permission:page-list|page-create|page-edit|page-delete', ['only' => ['index','show']]);
+         $this->middleware('permission:page-create', ['only' => ['create','store']]);
+         $this->middleware('permission:page-edit', ['only' => ['edit','update']]);
+         $this->middleware('permission:page-delete', ['only' => ['destroy']]);
+    }
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function index()
     {
         $pages = Page::latest()->paginate(10);
