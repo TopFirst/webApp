@@ -32,9 +32,10 @@
             $other_part = implode(" ", array_splice($pieces, 2));
           @endphp 
           <a href="{{ route('posts.lihat',$posts[0]->post_slug) }}" class="text-decoration-none text-white">
-          <h1 class="mb-0">{{ $first_part }}</h1>
-          <h1 class="mb-2">{{ $other_part }}</h1>
-          {{-- {{ $posts[0]->post_title }} --}}
+          {{-- <h1 class="mb-0">{{ $first_part }}</h1>
+          <h1 class="mb-2">{{ $other_part }}</h1> --}}
+          <h1>{{ $posts[0]->post_title }}</h1>
+          
         </a>
 
           <div class="fs-12">
