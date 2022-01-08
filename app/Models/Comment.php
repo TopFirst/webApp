@@ -21,7 +21,7 @@ class Comment extends Model
     ];
     protected $guard=['created_at'];
     
-    public function komen()
+    public function post()
     {
         return $this->belongsTo(Post::class,'post_ID');
     }

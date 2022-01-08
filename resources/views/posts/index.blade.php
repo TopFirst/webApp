@@ -33,7 +33,45 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                        <table class="table col-sm-12 col-lg-12">
+                        <form action="{{ route('posts.index') }}" method="GET">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label for="tipe" class="mt-2 mr-2">Tipe</label>
+                                        <select name="tipe" id="tipe" class="form-control col-md-9">
+                                            @foreach ($types as $tipe)
+                                                @if(old('tipe') == $tipe->post_type_slug)
+                                                    <option value="{{ $tipe->post_type_slug }}" selected>{{ $tipe->post_type_name }}</option>
+                                                @else
+                                                    <option value="{{ $tipe->post_type_slug }}">{{ $tipe->post_type_name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <div class="form-group row">
+                                        <label for="kategori" class="col-md-4 mt-2 text-right">Kategori</label>
+                                        <select name="kategori" id="kategori" class="form-control col-md-8">
+                                            @foreach ($categories as $category)
+                                                @if(old('kategori') == $category->category_slug)
+                                                    <option value="{{ $category->category_slug }}" selected>{{ $category->category_name }}</option>
+                                                @else
+                                                    <option value="{{ $category->category_slug }}">{{ $category->category_name }}</option>
+                                                @endif
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group float-right">
+                                        <button type="submit" class="btn btn-info"><i class="fas fa-filter"></i> Filter</button>
+                                        <a href="{{ route('posts.index') }}" class="btn btn-default">Reset</a>
+                                    </div>
+                                </div>
+                        </div>
+                    </form>
+                    <table class="table col-sm-12 col-lg-12">
                             <thead>
                                 <tr>
                                     <th>No</th>

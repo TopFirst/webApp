@@ -14,4 +14,9 @@ class PostType extends Model
         'post_type_slug'
     ];
     protected $guard=['created_at'];
+
+    public function post()
+    {
+        return $this->hasOne(Post::class,'post_type');
+    }
 }
