@@ -11,6 +11,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
   <title>{{ config('app.name', 'LAM Batam') }} @yield('title')</title>
 
+      <!-- End plugin css for this page -->
+      <link rel="shortcut icon" href="{{ url('app/images/favicon.png') }}" />
+
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
     <!-- Ionicons -->

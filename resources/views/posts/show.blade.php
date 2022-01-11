@@ -1,6 +1,51 @@
 @extends('layouts/app')
 
-@section('title', '| Artikel Detail')
+@push('css')
+      <!-- Add icon library -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<style>
+/* Style all font awesome icons */
+.fa {
+  padding: 10px;
+  font-size: 15px;
+  width: 70px;
+  text-align: center;
+  text-decoration: none;
+}
+
+.fa-bulat {
+  width: 35px;
+  border-radius: 50%;
+}
+
+/* Add a hover effect if you want */
+.fa:hover {
+  opacity: 0.7;
+  text-decoration: none;
+
+}
+
+/* Set a specific color for each brand */
+
+/* Facebook */
+.fa-facebook {
+  background: #3B5998;
+  color: white;
+}
+
+/* Twitter */
+.fa-twitter {
+  background: #55ACEE;
+  color: white;
+}
+
+/* whatsapp*/
+.fa-whatsapp {
+  background: #075e54;
+  color: white;
+}
+  </style>
+@endpush
 
 @section('content')
 <div class="container">
@@ -24,8 +69,14 @@
             <article class="my-3 fs-4">
                 {!! $post->post_content !!}
             </article>
-        
-            <a href="{{ route('posts.daftar') }}" class="d-block mt-3"><i class="fa fa-angle-left"></i> Kembali ke Daftar Artikel</a>
+        <hr>
+        <a href="#" class="btn btn-primary"><i class="mdi mdi-thumb-up p-0"></i> Like 0</a> 
+        <div class="form-group float-right">
+          <a href="https://www.facebook.com/sharer/sharer.php?u={{ route('posts.lihat',$post->post_slug) }}" class="fa fa-bulat fa-facebook"></a>
+          <a href="https://www.twitter.com/share?url={{ route('posts.lihat',$post->post_slug) }}" class="fa fa-bulat fa-twitter"></a>
+          <a href="https://wa.me/?text={{ route('posts.lihat',$post->post_slug) }}" class="fa fa-bulat fa-whatsapp"></a>
+        </div>
+        <hr>
         </div>
             <div class="col-md-4">
                 @if ($posts->count())

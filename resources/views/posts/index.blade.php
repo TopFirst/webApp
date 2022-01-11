@@ -35,12 +35,12 @@
                     <div class="card-body">
                         <form action="{{ route('posts.index') }}" method="GET">
                             <div class="row">
-                                <div class="col-md-3">
+                                <div class="col-md-2">
                                     <div class="form-group row">
                                         <label for="tipe" class="mt-2 mr-2">Tipe</label>
                                         <select name="tipe" id="tipe" class="form-control col-md-9">
                                             @foreach ($types as $tipe)
-                                                @if(old('tipe') == $tipe->post_type_slug)
+                                                @if(request('tipe') == $tipe->post_type_slug)
                                                     <option value="{{ $tipe->post_type_slug }}" selected>{{ $tipe->post_type_name }}</option>
                                                 @else
                                                     <option value="{{ $tipe->post_type_slug }}">{{ $tipe->post_type_name }}</option>
@@ -49,12 +49,12 @@
                                         </select>
                                     </div>
                                 </div>
-                                <div class="col-md-3">
+                                <div class="col-md-4">
                                     <div class="form-group row">
-                                        <label for="kategori" class="col-md-4 mt-2 text-right">Kategori</label>
+                                        <label for="kategori" class="mt-2 mr-2 ml-4 text-right">Kategori</label>
                                         <select name="kategori" id="kategori" class="form-control col-md-8">
                                             @foreach ($categories as $category)
-                                                @if(old('kategori') == $category->category_slug)
+                                                @if(request('kategori') == $category->category_slug)
                                                     <option value="{{ $category->category_slug }}" selected>{{ $category->category_name }}</option>
                                                 @else
                                                     <option value="{{ $category->category_slug }}">{{ $category->category_name }}</option>

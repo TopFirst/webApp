@@ -48,7 +48,7 @@ class HomeController extends Controller
         $categories = Category::withCount('post')->get()->sortByDesc('post_count');
         
         $popular_posts=$posts->take(5);
-        return view('index', compact('posts','categories','popular_posts', 'web_configs', 'pages','postsByCategory'));
+        return view('index', compact('posts','categories','popular_posts', 'web_configs', 'pages','postsByCategory'))->with('title','Beranda');
     }
     /**
      * Show pengaturan web.

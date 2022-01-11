@@ -55,7 +55,7 @@ class PageController extends Controller
         $pages = Page::all();
         $web_configs = WebConfig::latest()->get();
         $categories = Category::withCount('post')->get()->sortByDesc('post_count');
-        return view('pages.lihat',compact('page','web_configs','categories','posts','pages'));
+        return view('pages.lihat',compact('page','web_configs','categories','posts','pages'))->with('title',$page->title);
     }
 
     /**

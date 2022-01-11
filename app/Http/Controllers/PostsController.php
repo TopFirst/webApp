@@ -173,11 +173,11 @@ class PostsController extends Controller
             $posts = Post::whereHas('tipe',function($query){
                 $query->where('post_type_slug','video');
             })->get();
-            return view('posts.showvideo',compact('post','categories','web_configs','posts','pages'));
+            return view('posts.showvideo',compact('post','categories','web_configs','posts','pages'))->with('title',$post->post_title);
         }
         else{
             $posts = Post::latest()->paginate(10);
-            return view('posts.show',compact('post','categories','web_configs','posts','pages'));
+            return view('posts.show',compact('post','categories','web_configs','posts','pages'))->with('title',$post->post_title);
         }
     }
     /**
@@ -189,14 +189,14 @@ class PostsController extends Controller
     public function daftar()
     {
         // dd(request('Search'));
-        $title='';
+        $title='Daftar Artikel';
         if(request('category')){
             $category=Category::firstWhere('category_slug',request('category'));
-            $title=' di '.$category->category_name;
+            $title=$title.' di '.$category->category_name;
         }
         if(request('author')){
             $author=User::firstWhere('username',request('author'));
-            $title=' oleh '.$author->username;
+            $title=$title.' oleh '.$author->username;
         }
 
         $posts = Post::latest()->Filter(request(['search','category','author']))->paginate(7)->withQueryString();
